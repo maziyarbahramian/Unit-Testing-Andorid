@@ -47,7 +47,7 @@ public class Note implements Parcelable {
     public Note(Note note) {
         id = note.id;
         title = note.title;
-        content = note.content
+        content = note.content;
         timestamp = note.timestamp;
     }
 
