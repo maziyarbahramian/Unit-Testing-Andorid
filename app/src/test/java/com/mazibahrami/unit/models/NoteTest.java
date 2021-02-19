@@ -9,7 +9,6 @@ public class NoteTest {
     public static final String TIMESTAMPT_1 = "05-2019";
     public static final String TIMESTAMPT_2 = "04-2019";
 
-
     /*
       Compare two equal Notes
       */
