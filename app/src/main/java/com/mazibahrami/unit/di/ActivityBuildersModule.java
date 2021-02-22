@@ -1,6 +1,6 @@
 package com.mazibahrami.unit.di;
 
-import com.mazibahrami.unit.NotesListActivity;
+import com.mazibahrami.unit.ui.noteslist.NotesListActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

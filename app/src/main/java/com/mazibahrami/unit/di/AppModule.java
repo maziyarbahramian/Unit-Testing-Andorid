@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import com.mazibahrami.unit.models.Note;
 import com.mazibahrami.unit.persistence.NoteDao;
 import com.mazibahrami.unit.persistence.NoteDatabase;
+import com.mazibahrami.unit.repository.NoteRepository;
 
 import javax.inject.Singleton;
 
@@ -30,5 +32,11 @@ public class AppModule {
     @Provides
     static NoteDao provideNoteDao(NoteDatabase noteDatabase) {
         return noteDatabase.getNoteDao();
+    }
+
+    @Singleton
+    @Provides
+    static NoteRepository provideNoteRepository(NoteDao noteDao) {
+        return new NoteRepository(noteDao);
     }
 }
