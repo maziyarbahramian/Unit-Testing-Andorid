@@ -30,7 +30,7 @@ public class NoteRepository {
     public static final String INSERT_SUCCESS = "Insert success";
     public static final String INSERT_FAILURE = "Insert failure";
 
-    private int timeDelay = 2;
+    private int timeDelay = 1;
     private TimeUnit timeUnit = TimeUnit.SECONDS;
 
     @NonNull

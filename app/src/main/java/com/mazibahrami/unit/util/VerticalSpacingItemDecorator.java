@@ -1,4 +1,4 @@
-package com.codingwithmitch.unittesting2.util;
+package com.mazibahrami.unit.util;
 
 
 import android.graphics.Rect;

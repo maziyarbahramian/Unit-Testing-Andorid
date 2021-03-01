@@ -1,4 +1,4 @@
-package com.codingwithmitch.unittesting2.ui.noteslist;
+package com.mazibahrami.unit.ui.noteslist;
 
 
 import android.util.Log;
@@ -10,16 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codingwithmitch.unittesting2.R;
-import com.codingwithmitch.unittesting2.models.Note;
-import com.codingwithmitch.unittesting2.util.DateUtil;
+import com.mazibahrami.unit.R;
+import com.mazibahrami.unit.models.Note;
+import com.mazibahrami.unit.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static androidx.recyclerview.widget.RecyclerView.*;
 
-public class NotesRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class NotesRecyclerAdapter extends Adapter<ViewHolder> {
 
     private static final String TAG = "NotesRecyclerAdapter";
 
@@ -73,7 +73,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
         TextView timestamp, title;
         OnNoteListener mOnNoteListener;
