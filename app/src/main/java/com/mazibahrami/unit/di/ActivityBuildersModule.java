@@ -1,5 +1,6 @@
 package com.mazibahrami.unit.di;
 
+import com.mazibahrami.unit.ui.note.NoteActivity;
 import com.mazibahrami.unit.ui.noteslist.NotesListActivity;
 
 import dagger.Module;
@@ -10,4 +11,7 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     abstract NotesListActivity contributeNotesListActivity();
+
+    @ContributesAndroidInjector
+    abstract NoteActivity contributeNoteActivity();
 }

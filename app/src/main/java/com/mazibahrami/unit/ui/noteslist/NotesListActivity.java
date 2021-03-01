@@ -2,11 +2,13 @@ package com.mazibahrami.unit.ui.noteslist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.mazibahrami.unit.R;
 import com.mazibahrami.unit.repository.NoteRepository;
+import com.mazibahrami.unit.ui.note.NoteActivity;
 
 import javax.inject.Inject;
 
@@ -25,5 +27,6 @@ public class NotesListActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_notes_list);
 
         Log.d(TAG, "onCreate: " + noteRepository);
+        startActivity(new Intent(this, NoteActivity.class));
     }
 }
