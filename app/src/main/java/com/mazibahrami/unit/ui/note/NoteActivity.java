@@ -37,9 +37,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener,
         View.OnClickListener,
-        TextWatcher
-
-{
+        TextWatcher {
 
     private static final String TAG = "NoteActivity";
 
@@ -75,7 +73,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         subscribeObservers();
         setListeners();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getIncomingIntent();
             enableEditMode();
         }
@@ -86,11 +84,10 @@ public class NoteActivity extends DaggerAppCompatActivity implements
     private void getIncomingIntent() {
         try {
             Note note;
-            if(getIntent().hasExtra(getString(R.string.intent_note))){
-                note = new Note((Note)getIntent().getParcelableExtra(getString(R.string.intent_note)));
+            if (getIntent().hasExtra(getString(R.string.intent_note))) {
+                note = new Note((Note) getIntent().getParcelableExtra(getString(R.string.intent_note)));
                 viewModel.setIsNewNote(false);
-            }
-            else{
+            } else {
                 note = new Note("Title", "", DateUtil.getCurrentTimeStamp());
                 viewModel.setIsNewNote(true);
             }
@@ -102,7 +99,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
     }
 
 
-    private void setListeners(){
+    private void setListeners() {
         mGestureDetector = new GestureDetector(this, this);
         linedEditText.setOnTouchListener(this);
         check.setOnClickListener(this);
@@ -118,7 +115,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
     }
 
 
-    private void subscribeObservers(){
+    private void subscribeObservers() {
 
         viewModel.observeNote().observe(this, new Observer<Note>() {
             @Override
@@ -130,13 +127,13 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         viewModel.observeViewState().observe(this, new Observer<NoteViewModel.ViewState>() {
             @Override
             public void onChanged(NoteViewModel.ViewState viewState) {
-                switch (viewState){
-                    case EDIT:{
+                switch (viewState) {
+                    case EDIT: {
                         enableContentInteraction();
                         break;
                     }
 
-                    case VIEW:{
+                    case VIEW: {
                         disableContentInteraction();
                         break;
                     }
@@ -145,30 +142,30 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         });
     }
 
-    private void saveNote(){
+    private void saveNote() {
         Log.d(TAG, "saveNote: called.");
         try {
             viewModel.saveNote().observe(this, new Observer<Resource<Integer>>() {
                 @Override
                 public void onChanged(Resource<Integer> integerResource) {
                     try {
-                        if(integerResource != null){
-                            switch (integerResource.status){
+                        if (integerResource != null) {
+                            switch (integerResource.status) {
 
-                                case SUCCESS:{
-                                    Log.e(TAG, "onChanged: save note: success..." );
+                                case SUCCESS: {
+                                    Log.e(TAG, "onChanged: save note: success...");
                                     showSnackBar(integerResource.message);
                                     break;
                                 }
 
-                                case ERROR:{
-                                    Log.e(TAG, "onChanged: save note: error..." );
+                                case ERROR: {
+                                    Log.e(TAG, "onChanged: save note: error...");
                                     showSnackBar(integerResource.message);
                                     break;
                                 }
 
-                                case LOADING:{
-                                    Log.e(TAG, "onChanged: save note: loading..." );
+                                case LOADING: {
+                                    Log.e(TAG, "onChanged: save note: loading...");
                                     break;
                                 }
                             }
@@ -195,35 +192,35 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void showSnackBar(String message){
-        if(!TextUtils.isEmpty(message)) {
+    private void showSnackBar(String message) {
+        if (!TextUtils.isEmpty(message)) {
 
             Snackbar.make(parent, message, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     private void setNoteProperties(Note note) {
-        try{
+        try {
             viewTitle.setText(note.getTitle());
             editText.setText(note.getTitle());
             linedEditText.setText(note.getContent());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             showSnackBar("Error displaying note properties");
         }
 
     }
 
-    private void enableEditMode(){
+    private void enableEditMode() {
         Log.d(TAG, "enableEditMode: called.");
         viewModel.setViewState(NoteViewModel.ViewState.EDIT);
     }
 
-    private void disableEditMode(){
+    private void disableEditMode() {
         Log.d(TAG, "disableEditMode: called.");
         viewModel.setViewState(NoteViewModel.ViewState.VIEW);
 
-        if(!TextUtils.isEmpty(linedEditText.getText())){
+        if (!TextUtils.isEmpty(linedEditText.getText())) {
             try {
                 viewModel.updateNote(editText.getText().toString(), linedEditText.getText().toString());
             } catch (Exception e) {
@@ -235,7 +232,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         saveNote();
     }
 
-    private void disableContentInteraction(){
+    private void disableContentInteraction() {
         hideKeyboard(this);
 
         backArrowContrainer.setVisibility(View.VISIBLE);
@@ -251,7 +248,7 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         linedEditText.clearFocus();
     }
 
-    private void enableContentInteraction(){
+    private void enableContentInteraction() {
         backArrowContrainer.setVisibility(View.GONE);
         checkContainer.setVisibility(View.VISIBLE);
 
@@ -329,16 +326,16 @@ public class NoteActivity extends DaggerAppCompatActivity implements
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.toolbar_back_arrow:{
+        switch (view.getId()) {
+            case R.id.toolbar_back_arrow: {
                 finish();
                 break;
             }
-            case R.id.toolbar_check:{
+            case R.id.toolbar_check: {
                 disableEditMode();
                 break;
             }
-            case R.id.note_text_title:{
+            case R.id.note_text_title: {
                 enableEditMode();
                 editText.requestFocus();
                 editText.setSelection(editText.length());
@@ -354,10 +351,9 @@ public class NoteActivity extends DaggerAppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if(viewModel.shouldNavigateBack()){
+        if (viewModel.shouldNavigateBack()) {
             super.onBackPressed();
-        }
-        else{
+        } else {
             onClick(check);
         }
     }
